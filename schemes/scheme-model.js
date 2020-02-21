@@ -20,7 +20,9 @@ function findById(id){
 }
 
 function findSteps(schemeId){
-    return db('steps')
+    return db('steps as s')
+        .join('schemes as sc', 'sc.id', 's.schemes.id')
+        .select('s.step_number as Step Number', 's.instructions as Instructions', 'sc.schemes_name as Scheme Name')
         .where('scheme_id', schemeId)
 }
 
